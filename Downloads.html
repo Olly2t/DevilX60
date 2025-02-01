@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downloads</title>
     <style>
+        /* Importing the font */
+        @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -95,6 +98,24 @@
                 transform: rotate(-5deg) scale(1.05);
             }
         }
+        /* Binary Rain Background */
+        .binary {
+            position: absolute;
+            z-index: -1;
+            font-family: 'Source Sans Pro', sans-serif;
+            -webkit-animation-duration: 1s;
+            writing-mode: vertical-rl;
+            text-orientation: sideways;
+            color: white;
+            text-shadow: 0 0 10px #91EDFF;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Particles */
         .particle {
             position: absolute;
             width: 10px;
@@ -103,14 +124,10 @@
             border-radius: 50%;
             animation: particleMovement 5s infinite;
         }
+
         @keyframes particleMovement {
             0% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-300px) scale(0); opacity: 0; }
-        }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -124,9 +141,12 @@
 
 <!-- Main Content -->
 <div class="main-container">
-    <div class="title">Welcome to the Download Zone</div>
+    <div class="title">Here Are the downloads</div>
     <button class="button" id="downloadBtn">
-        <span class="download-icon">⬇️</span> Download Now
+        <span class="download-icon">⬇</span> Download Now
+    </button>
+    <button class="button" id="downloadBtn">
+        <span class="download-icon">⬇</span> HACK1
     </button>
     <p>Click the button to get your file!</p>
 </div>
@@ -158,6 +178,93 @@
         link.click();
         document.body.removeChild(link);
     });
+
+    // Binary Rain Background Code
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+
+    class Random {
+        static generateBinary() {
+            var random = Math.random();
+            return random > 0.5 ? 1 : 0;
+        }
+
+        static generate(min, max) {
+            return Math.floor((Math.random() * max) + min);
+        }
+    }
+
+    class Binary {
+        constructor() {
+            this.value = Random.generateBinary();
+        }
+
+        animate(ts, leftOffset, topOffset) {
+            var div = document.createElement("div");
+            div.style.fontSize = ts + "px";
+            div.style.top = topOffset * (ts / 2) + "px";
+            div.style.left = leftOffset + "px";
+            div.textContent = this.value;
+            div.classList.add("binary");
+            div.style.display = "none";
+            document.body.appendChild(div);
+            div.style.display = "block";
+            div.classList.add("animated", "fadeIn");
+            div.addEventListener(animationEnd, this.fadeInEnd);
+            return div.offsetTop;
+        }
+
+        fadeInEnd(event) {
+            var binary = event.currentTarget;
+            binary.classList.remove("animated", "fadeIn");
+            binary.classList.add("animated", "fadeOut");
+            binary.addEventListener(animationEnd, function() {
+                binary.remove();
+            });
+        }
+    }
+
+    class BinaryLine {
+        constructor(lO, tS, dS) {
+            this.leftOffset = lO;
+            this.textSize = tS;
+            this.documentSize = dS;
+        }
+
+        generate() {
+            var iterator = 1;
+            var size = this.textSize;
+            var documentSize = this.documentSize;
+            var currentOffset = 0;
+            var leftOffset = this.leftOffset;
+            var interval = setInterval(function() {
+                if (currentOffset < documentSize) {
+                    var binary = new Binary();
+                    currentOffset = binary.animate(size, leftOffset, iterator);
+                    iterator++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 80);
+        }
+    }
+
+    class BinaryAnimation {
+        constructor() {}
+
+        start() {
+            setInterval(function() {
+                new BinaryLine(Random.generate(0, document.body.offsetWidth), Random.generate(document.body.offsetWidth * 0.002, document.body.offsetWidth * 0.008), document.body.offsetHeight).generate();
+            }, 400);
+
+            setInterval(function() {
+                document.querySelectorAll(".binary").forEach(function(el) {
+                    el.remove();
+                });
+            }, 30000);
+        }
+    }
+
+    new BinaryAnimation().start();
 </script>
 
 </body>
