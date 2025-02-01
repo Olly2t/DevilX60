@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Home Page</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -55,32 +55,32 @@
             margin-bottom: 30px;
             animation: colorShift 3s infinite, breathing 6s ease-in-out infinite;
         }
-        .button {
-            padding: 20px 40px;
-            background: #00d2ff;
+
+        /* Round box with breathing idle tilt */
+        .round-box {
+            width: 200px;
+            height: 200px;
+            background-color: #00d2ff;
+            border-radius: 50%;
             color: #222;
             font-size: 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.3s ease;
+            font-weight: bold;
             animation: breathing 6s ease-in-out infinite;
+            margin: 0 auto;
         }
-        .button:hover {
-            background: #ff004f;
-            color: #fff;
-        }
-        .download-icon {
-            font-size: 50px;
-            margin: 20px;
-        }
+
+        /* Animations */
         @keyframes colorShift {
             0% { color: #ff004f; }
             50% { color: #00d2ff; }
             100% { color: #ff004f; }
         }
+
         @keyframes breathing {
             0%, 100% {
                 transform: rotate(0deg) scale(1);
@@ -95,6 +95,7 @@
                 transform: rotate(-5deg) scale(1.05);
             }
         }
+
         .particle {
             position: absolute;
             width: 10px;
@@ -124,11 +125,12 @@
 
 <!-- Main Content -->
 <div class="main-container">
-    <div class="title">Welcome to the Download Zone</div>
-    <button class="button" id="downloadBtn">
-        <span class="download-icon">⬇️</span> Download Now
-    </button>
-    <p>Click the button to get your file!</p>
+    <div class="title">Welcome to the Home Page</div>
+    
+    <!-- Round Box with Breathing Idle Tilt Animation -->
+    <div class="round-box">
+        Explore
+    </div>
 </div>
 
 <!-- JavaScript -->
@@ -146,18 +148,6 @@
         particle.style.animationDuration = `${Math.random() * 4 + 2}s`;
         particle.style.animationDelay = `${Math.random() * 4}s`;
     }
-
-    // Set up download functionality
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-        // Replace this URL with your file's location
-        const fileUrl = "https://www.example.com/yourfile.zip";
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
 </script>
 
 </body>
