@@ -14,9 +14,38 @@
             overflow: hidden;
             position: relative;
         }
+
+        /* Tabs at the top */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: #111;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .tab {
+            padding: 15px 30px;
+            color: #fff;
+            font-size: 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+        .tab:hover {
+            background: #00d2ff;
+            color: #222;
+        }
+
         .main-container {
             text-align: center;
             padding: 50px;
+            margin-top: 70px; /* To avoid overlap with tabs */
         }
         .title {
             font-size: 50px;
@@ -77,10 +106,22 @@
             0% { transform: translateY(0) scale(1); opacity: 1; }
             100% { transform: translateY(-300px) scale(0); opacity: 0; }
         }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
 
+<!-- Tabs Section -->
+<div class="tabs">
+    <div class="tab" id="homeTab">Home</div>
+    <div class="tab" id="downloadTab">Downloads</div>
+</div>
+
+<!-- Main Content -->
 <div class="main-container">
     <div class="title">Welcome to the Download Zone</div>
     <button class="button" id="downloadBtn">
@@ -89,6 +130,7 @@
     <p>Click the button to get your file!</p>
 </div>
 
+<!-- JavaScript -->
 <script>
     // Create particles that fill the entire page
     for (let i = 0; i < 300; i++) {
@@ -103,6 +145,16 @@
         particle.style.animationDuration = `${Math.random() * 4 + 2}s`;
         particle.style.animationDelay = `${Math.random() * 4}s`;
     }
+
+    // Handle smooth scroll when tabs are clicked
+    document.getElementById('homeTab').addEventListener('click', function() {
+        window.scrollTo(0, 0); // Scroll to the top for home
+    });
+
+    document.getElementById('downloadTab').addEventListener('click', function() {
+        const downloadSection = document.getElementById('downloadBtn');
+        downloadSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to the download button
+    });
 
     // Set up download functionality
     document.getElementById('downloadBtn').addEventListener('click', function() {
