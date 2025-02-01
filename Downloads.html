@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downloads</title>
+
+    <!-- Include Lucide Icons -->
     <link href="https://cdn.jsdelivr.net/npm/@lucide-icons/web@0.12.0/dist/lucide.min.css" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -68,6 +71,7 @@
             letter-spacing: 2px;
             transition: all 0.3s ease;
             animation: breathing 6s ease-in-out infinite;
+            margin: 10px; /* Add space between buttons */
         }
         .button:hover {
             background: #ff004f;
@@ -125,26 +129,40 @@
 
 <!-- Main Content -->
 <div class="main-container">
-    <div class="title">Welcome to the Download Zone</div>
-    <button class="button" id="downloadBtn">
-        <i class="lucide-download download-icon"></i> Download Now
-    </button>
-    <p>Click the button to get your file!</p>
+    <div class="title">Welcome to the Downloads</div>
+
+    <!-- Download Buttons -->
+    <div>
+        <button class="button" id="downloadBtn1">
+            <i class="lucide-download download-icon"></i> Download File 1
+        </button>
+        <button class="button" id="downloadBtn2">
+            <i class="lucide-download download-icon"></i> Download File 2
+        </button>
+        <button class="button" id="downloadBtn3">
+            <i class="lucide-download download-icon"></i> Download File 3
+        </button>
+    </div>
 </div>
 
 <!-- JavaScript -->
 <script>
-    // Set up download functionality
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-        // Replace this URL with your file's location
-        const fileUrl = "https://www.example.com/yourfile.zip";
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
+    // Set up download functionality for multiple buttons
+    function setupDownloadButton(buttonId, fileUrl) {
+        document.getElementById(buttonId).addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
+    // Set the download links for each button
+    setupDownloadButton('downloadBtn1', 'https://www.example.com/yourfile1.zip');
+    setupDownloadButton('downloadBtn2', 'https://www.example.com/yourfile2.zip');
+    setupDownloadButton('downloadBtn3', 'https://www.example.com/yourfile3.zip');
 
     // Binary Rain Background Code
     var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
