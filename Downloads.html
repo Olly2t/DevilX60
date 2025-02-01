@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downloads</title>
+    <link href="https://cdn.jsdelivr.net/npm/@lucide-icons/web@0.12.0/dist/lucide.min.css" rel="stylesheet">
     <style>
-        /* Importing the font */
-        @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -76,8 +74,8 @@
             color: #fff;
         }
         .download-icon {
-            font-size: 50px;
-            margin: 20px;
+            font-size: 40px;
+            margin-right: 10px;
         }
         @keyframes colorShift {
             0% { color: #ff004f; }
@@ -98,6 +96,7 @@
                 transform: rotate(-5deg) scale(1.05);
             }
         }
+
         /* Binary Rain Background */
         .binary {
             position: absolute;
@@ -114,21 +113,6 @@
         html {
             scroll-behavior: smooth;
         }
-
-        /* Particles */
-        .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: particleMovement 5s infinite;
-        }
-
-        @keyframes particleMovement {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-300px) scale(0); opacity: 0; }
-        }
     </style>
 </head>
 <body>
@@ -141,32 +125,15 @@
 
 <!-- Main Content -->
 <div class="main-container">
-    <div class="title">Here Are the downloads</div>
+    <div class="title">Welcome to the Download Zone</div>
     <button class="button" id="downloadBtn">
-        <span class="download-icon">⬇</span> Download Now
-    </button>
-    <button class="button" id="downloadBtn">
-        <span class="download-icon">⬇</span> HACK1
+        <i class="lucide-download download-icon"></i> Download Now
     </button>
     <p>Click the button to get your file!</p>
 </div>
 
 <!-- JavaScript -->
 <script>
-    // Create particles that fill the entire page
-    for (let i = 0; i < 300; i++) {
-        let particle = document.createElement('div');
-        particle.classList.add('particle');
-        document.body.appendChild(particle);
-        let size = Math.random() * 5 + 5;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * window.innerWidth}px`;
-        particle.style.top = `${Math.random() * window.innerHeight}px`;
-        particle.style.animationDuration = `${Math.random() * 4 + 2}s`;
-        particle.style.animationDelay = `${Math.random() * 4}s`;
-    }
-
     // Set up download functionality
     document.getElementById('downloadBtn').addEventListener('click', function() {
         // Replace this URL with your file's location
