@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #222;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
 
+        /* Tabs at the top */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background: #111;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .tab {
+            padding: 15px 30px;
+            color: #fff;
+            font-size: 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            border-radius: 5px;
+            text-decoration: none; /* Remove underline */
+        }
+        .tab:hover {
+            background: #00d2ff;
+            color: #222;
+        }
+
+        .main-container {
+            text-align: center;
+            padding: 50px;
+            margin-top: 70px; /* To avoid overlap with tabs */
+        }
+        .title {
+            font-size: 50px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            animation: colorShift 3s infinite, breathing 6s ease-in-out infinite;
+        }
+        .button {
+            padding: 20px 40px;
+            background: #00d2ff;
+            color: #222;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            animation: breathing 6s ease-in-out infinite;
+        }
+        .button:hover {
+            background: #ff004f;
+            color: #fff;
+        }
+        .download-icon {
+            font-size: 50px;
+            margin: 20px;
+        }
+        @keyframes colorShift {
+            0% { color: #ff004f; }
+            50% { color: #00d2ff; }
+            100% { color: #ff004f; }
+        }
+        @keyframes breathing {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(5deg) scale(1.05);
+            }
+            50% {
+                transform: rotate(0deg) scale(1);
+            }
+            75% {
+                transform: rotate(-5deg) scale(1.05);
+            }
+        }
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: particleMovement 5s infinite;
+        }
+        @keyframes particleMovement {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-300px) scale(0); opacity: 0; }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Tabs Section -->
+<div class="tabs">
+    <a href="index.html" class="tab">Home</a>
+    <a href="Downloads.html" class="tab">Downloads</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-container">
+    <div class="title">Welcome to the Download Zone</div>
+    <button class="button" id="downloadBtn">
+        <span class="download-icon">⬇️</span> Download Now
+    </button>
+    <p>Click the button to get your file!</p>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Create particles that fill the entire page
+    for (let i = 0; i < 300; i++) {
+        let particle = document.createElement('div');
+        particle.classList.add('particle');
+        document.body.appendChild(particle);
+        let size = Math.random() * 5 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * window.innerWidth}px`;
+        particle.style.top = `${Math.random() * window.innerHeight}px`;
+        particle.style.animationDuration = `${Math.random() * 4 + 2}s`;
+        particle.style.animationDelay = `${Math.random() * 4}s`;
+    }
+
+    // Set up download functionality
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        // Replace this URL with your file's location
+        const fileUrl = "https://www.example.com/yourfile.zip";
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+</script>
+
+</body>
+</html>
