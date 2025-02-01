@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <style>
+        /* Importing the font */
+        @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #222;
-            color: #fff;
+            background-color: #111111;
             overflow: hidden;
             position: relative;
         }
@@ -96,17 +98,16 @@
             }
         }
 
-        .particle {
+        /* Binary Animation Background */
+        .binary {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: particleMovement 5s infinite;
-        }
-        @keyframes particleMovement {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-300px) scale(0); opacity: 0; }
+            z-index: -1;
+            font-family: 'Source Sans Pro', sans-serif;
+            -webkit-animation-duration: 1s;
+            writing-mode: vertical-rl;
+            text-orientation: sideways;
+            color: white;
+            text-shadow: 0 0 10px #91EDFF;
         }
 
         /* Smooth Scroll */
@@ -133,21 +134,93 @@
     </div>
 </div>
 
-<!-- JavaScript -->
+<!-- Binary Rain Background Script -->
 <script>
-    // Create particles that fill the entire page
-    for (let i = 0; i < 300; i++) {
-        let particle = document.createElement('div');
-        particle.classList.add('particle');
-        document.body.appendChild(particle);
-        let size = Math.random() * 5 + 5;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * window.innerWidth}px`;
-        particle.style.top = `${Math.random() * window.innerHeight}px`;
-        particle.style.animationDuration = `${Math.random() * 4 + 2}s`;
-        particle.style.animationDelay = `${Math.random() * 4}s`;
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+
+    class Random {
+        static generateBinary() {
+            var random = Math.random();
+            return random > 0.5 ? 1 : 0;
+        }
+        
+        static generate(min, max) {
+            return Math.floor((Math.random() * max) + min);
+        }
     }
+
+    class Binary {
+        constructor() {
+            this.value = Random.generateBinary();
+        }
+
+        animate(ts, leftOffset, topOffset) {
+            var div = document.createElement("div");
+            div.style.fontSize = ts + "px";
+            div.style.top = topOffset * (ts / 2) + "px";
+            div.style.left = leftOffset + "px";
+            div.textContent = this.value;
+            div.classList.add("binary");
+            div.style.display = "none";
+            document.body.appendChild(div);
+            div.style.display = "block";
+            div.classList.add("animated", "fadeIn");
+            div.addEventListener(animationEnd, this.fadeInEnd);
+            return div.offsetTop;
+        }
+
+        fadeInEnd(event) {
+            var binary = event.currentTarget;
+            binary.classList.remove("animated", "fadeIn");
+            binary.classList.add("animated", "fadeOut");
+            binary.addEventListener(animationEnd, function() {
+                binary.remove();
+            });
+        }
+    }
+
+    class BinaryLine {
+        constructor(lO, tS, dS) {
+            this.leftOffset = lO;
+            this.textSize = tS;
+            this.documentSize = dS;
+        }
+
+        generate() {
+            var iterator = 1;
+            var size = this.textSize;
+            var documentSize = this.documentSize;
+            var currentOffset = 0;
+            var leftOffset = this.leftOffset;
+            var interval = setInterval(function() {
+                if (currentOffset < documentSize) {
+                    var binary = new Binary();
+                    currentOffset = binary.animate(size, leftOffset, iterator);
+                    iterator++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 80);
+        }
+    }
+
+    class BinaryAnimation {
+        constructor() {}
+
+        start() {
+            setInterval(function() {
+                new BinaryLine(Random.generate(0, document.body.offsetWidth), Random.generate(document.body.offsetWidth * 0.002, document.body.offsetWidth * 0.008), document.body.offsetHeight).generate();
+            }, 400);
+
+            setInterval(function() {
+                document.querySelectorAll(".binary").forEach(function(el) {
+                    el.remove();
+                });
+            }, 30000);
+        }
+    }
+
+    new BinaryAnimation().start();
 </script>
 
 </body>
