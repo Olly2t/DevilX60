@@ -50,16 +50,6 @@
             color: #ff004f;
         }
 
-        /* Sections */
-        .section {
-            display: none;
-            padding: 100px 20px;
-        }
-
-        .active {
-            display: block;
-        }
-
         /* Music Player Widget */
         .music-widget {
             position: fixed;
@@ -104,20 +94,8 @@
 
 <!-- Navigation Bar -->
 <div class="navbar">
-    <a href="#" onclick="showSection('home')">Home</a>
-    <a href="#" onclick="showSection('downloads')">Downloads</a>
-</div>
-
-<!-- Home Section -->
-<div id="home" class="section active">
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is the home section.</p>
-</div>
-
-<!-- Downloads Section -->
-<div id="downloads" class="section">
-    <h1>Downloads</h1>
-    <p>Here you can download my files.</p>
+    <a href="Index.html">Home</a>
+    <a href="Downloads.html">Downloads</a>
 </div>
 
 <!-- Music Player Widget -->
@@ -150,14 +128,6 @@
             playPauseBtn.innerText = '▶';
         }
     });
-
-    // Function to switch between sections
-    function showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(sectionId).classList.add('active');
-    }
 </script>
 
 </body>
