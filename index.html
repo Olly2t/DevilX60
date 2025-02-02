@@ -7,47 +7,84 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
+            margin: 0;
+            height: 100vh; /* Full height */
+            background: linear-gradient(45deg, #121212, #2c2c2c, #383838);
+            background-size: 400% 400%; /* The gradient's size */
+            animation: gradientAnimation 10s ease infinite; /* Animation */
             color: rgb(255, 255, 255);
             text-align: center;
-            margin: 0;
         }
+
         header {
-            background-color: #333;
+            background-color: #302f2f;
             padding: 10px 0;
         }
+
         header h1 {
             margin: 0;
             font-size: 36px;
         }
+
         .gallery {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             margin: 20px;
         }
+
         .gallery-item {
             margin: 20px;
             border: 2px solid #ffffff;
             width: 250px;
             border-radius: 4%;
+            background-color: #383838;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+
         .gallery-item img {
             width: 100%;
             height: auto;
+            border-radius: 4%;
+            transition: opacity 0.3s ease;
         }
+
+        .gallery-item:hover img {
+            opacity: 0.9;
+        }
+
         .gallery-item .description {
             padding: 10px;
             background-color: #444;
             color: #ddd;
+            text-align: left;
         }
+
         footer {
-            background-color: #333;
+            background-color: #292828;
             padding: 10px;
             color: white;
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+
+        /* Gradient Animation */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
@@ -60,8 +97,8 @@
     <main>
         <section class="gallery">
             <div class="gallery-item">
-                <img src="ISH.png" alt="Thunderstorm 1">
-                <div class="description">Ish is a powerful human being Excelent Coding Knowledge</div>
+                <img src="ISH.png" alt="Ish">
+                <div class="description">Ish is a powerful human being with excellent coding knowledge.</div>
             </div>
             <div class="gallery-item">
                 <img src="image2.jpg" alt="Thunderstorm 2">
@@ -72,66 +109,13 @@
                 <div class="description">A dramatic thunderstorm over a mountain range.</div>
             </div>
             <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
+                <img src="image4.jpg" alt="Thunderstorm 4">
+                <div class="description">Lightning strikes over a serene ocean view.</div>
             </div>
             <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
+                <img src="image5.jpg" alt="Thunderstorm 5">
+                <div class="description">A rare sight of a rainbow following a thunderstorm.</div>
             </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            <div class="gallery-item">
-                <img src="image3.jpg" alt="Thunderstorm 3">
-                <div class="description">A dramatic thunderstorm over a mountain range.</div>
-            </div>
-            
         </section>
     </main>
 </body>
