@@ -3,131 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Home</title>
 
     <style>
         body {
-            font-family: 'Fira Sans', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            color: #fff;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            text-align: center;
+            background: #222;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Navigation Bar */
-        .navbar {
+        /* Tabs at the top */
+        .tabs {
             display: flex;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 0;
+            background: #111;
+            padding: 10px;
             position: fixed;
-            width: 100%;
             top: 0;
             left: 0;
-            z-index: 100;
+            width: 100%;
+            z-index: 10;
         }
-
-        .navbar a {
-            color: #00d2ff;
-            text-decoration: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .navbar a:hover {
-            color: #ff004f;
-        }
-
-        /* Music Player Widget */
-        .music-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 15px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 210, 255, 0.3);
-        }
-
-        .music-widget img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .music-widget p {
-            margin: 0;
-            font-size: 14px;
+        .tab {
+            padding: 15px 30px;
             color: #fff;
-        }
-
-        .music-widget button {
-            background: none;
-            border: none;
-            color: #00d2ff;
-            font-size: 18px;
+            font-size: 20px;
+            text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .tab:hover {
+            background: #00d2ff;
+            color: #222;
         }
 
-        .music-widget button:hover {
-            color: #ff004f;
+        .main-container {
+            text-align: center;
+            padding: 50px;
+            margin-top: 70px; /* To avoid overlap with tabs */
+        }
+        .title {
+            font-size: 50px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            animation: colorShift 3s infinite, breathing 6s ease-in-out infinite;
+        }
+        
+        @keyframes colorShift {
+            0% { color: #ff004f; }
+            50% { color: #00d2ff; }
+            100% { color: #ff004f; }
+        }
+        @keyframes breathing {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(5deg) scale(1.05); }
+            50% { transform: rotate(0deg) scale(1); }
+            75% { transform: rotate(-5deg) scale(1.05); }
+        }
+
+        /* Binary Rain Background */
+        .binary {
+            position: absolute;
+            z-index: -1;
+            font-family: 'Source Sans Pro', sans-serif;
+            -webkit-animation-duration: 1s;
+            writing-mode: vertical-rl;
+            text-orientation: sideways;
+            color: white;
+            text-shadow: 0 0 10px #91EDFF;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<div class="navbar">
-    <a href="Index.html">Home</a>
-    <a href="Downloads.html">Downloads</a>
+<!-- Tabs Section -->
+<div class="tabs">
+    <a href="Home.html" class="tab">Home</a>
+    <a href="Downloads.html" class="tab">Downloads</a>
 </div>
 
-<!-- Music Player Widget -->
-<div class="music-widget">
-    <img src="https://img.icons8.com/fluency/48/music.png" alt="Music">
-    <p id="song-title">Now Playing: My Favorite Song</p>
-    <button id="playPauseBtn">▶</button>
+<!-- Main Content -->
+<div class="main-container">
+    <div class="title">Welcome to My Portfolio</div>
 </div>
 
-<!-- Hidden Audio Player -->
-<audio id="audio-player" src="Praise_Da_Lo.mp3"></audio>
-
+<!-- Binary Rain Background -->
 <script>
-    const audio = document.getElementById('audio-player');
-    const playPauseBtn = document.getElementById('playPauseBtn');
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-    // Play audio on page load (muted if autoplay is blocked)
-    window.onload = () => {
-        audio.volume = 1.0;
-        audio.play().catch(error => console.log("Autoplay blocked by browser:", error));
-    };
-
-    // Toggle Play/Pause
-    playPauseBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            playPauseBtn.innerText = '⏸';
-        } else {
-            audio.pause();
-            playPauseBtn.innerText = '▶';
+    class Random {
+        static generateBinary() {
+            return Math.random() > 0.5 ? 1 : 0;
         }
-    });
+
+        static generate(min, max) {
+            return Math.floor((Math.random() * max) + min);
+        }
+    }
+
+    class Binary {
+        constructor() {
+            this.value = Random.generateBinary();
+        }
+
+        animate(ts, leftOffset, topOffset) {
+            var div = document.createElement("div");
+            div.style.fontSize = ts + "px";
+            div.style.top = topOffset * (ts / 2) + "px";
+            div.style.left = leftOffset + "px";
+            div.textContent = this.value;
+            div.classList.add("binary");
+            div.style.display = "none";
+            document.body.appendChild(div);
+            div.style.display = "block";
+            div.classList.add("animated", "fadeIn");
+            div.addEventListener(animationEnd, this.fadeInEnd);
+            return div.offsetTop;
+        }
+
+        fadeInEnd(event) {
+            var binary = event.currentTarget;
+            binary.classList.remove("animated", "fadeIn");
+            binary.classList.add("animated", "fadeOut");
+            binary.addEventListener(animationEnd, function() {
+                binary.remove();
+            });
+        }
+    }
+
+    class BinaryLine {
+        constructor(lO, tS, dS) {
+            this.leftOffset = lO;
+            this.textSize = tS;
+            this.documentSize = dS;
+        }
+
+        generate() {
+            var iterator = 1;
+            var size = this.textSize;
+            var documentSize = this.documentSize;
+            var currentOffset = 0;
+            var leftOffset = this.leftOffset;
+            var interval = setInterval(function() {
+                if (currentOffset < documentSize) {
+                    var binary = new Binary();
+                    currentOffset = binary.animate(size, leftOffset, iterator);
+                    iterator++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 80);
+        }
+    }
+
+    class BinaryAnimation {
+        constructor() {}
+
+        start() {
+            setInterval(function() {
+                new BinaryLine(Random.generate(0, document.body.offsetWidth), Random.generate(document.body.offsetWidth * 0.002, document.body.offsetWidth * 0.008), document.body.offsetHeight).generate();
+            }, 400);
+
+            setInterval(function() {
+                document.querySelectorAll(".binary").forEach(function(el) {
+                    el.remove();
+                });
+            }, 30000);
+        }
+    }
+
+    new BinaryAnimation().start();
 </script>
 
 </body>
