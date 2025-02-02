@@ -74,13 +74,13 @@
 </div>
 
 <!-- Hidden Audio Player -->
-<audio id="audio-player" src="Praise_Da_Lo.mp3"></audio>
+<audio id="audio-player" src="mysong.mp3"></audio>
 
 <script>
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('playPauseBtn');
 
-    // Play audio on page load (muted)
+    // Play audio on page load (muted if autoplay is blocked)
     window.onload = () => {
         audio.volume = 1.0;  // Set volume
         audio.play().catch(error => console.log("Autoplay blocked by browser:", error));
@@ -100,3 +100,4 @@
 
 </body>
 </html>
+w
