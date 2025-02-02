@@ -16,12 +16,48 @@
             color: #fff;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .navbar a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ff004f;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 100px 20px;
+        }
+
+        .active {
+            display: block;
         }
 
         /* Music Player Widget */
@@ -66,6 +102,24 @@
 </head>
 <body>
 
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="#" onclick="showSection('home')">Home</a>
+    <a href="#" onclick="showSection('downloads')">Downloads</a>
+</div>
+
+<!-- Home Section -->
+<div id="home" class="section active">
+    <h1>Welcome to My Portfolio</h1>
+    <p>This is the home section.</p>
+</div>
+
+<!-- Downloads Section -->
+<div id="downloads" class="section">
+    <h1>Downloads</h1>
+    <p>Here you can download my files.</p>
+</div>
+
 <!-- Music Player Widget -->
 <div class="music-widget">
     <img src="https://img.icons8.com/fluency/48/music.png" alt="Music">
@@ -82,7 +136,7 @@
 
     // Play audio on page load (muted if autoplay is blocked)
     window.onload = () => {
-        audio.volume = 1.0;  // Set volume
+        audio.volume = 1.0;
         audio.play().catch(error => console.log("Autoplay blocked by browser:", error));
     };
 
@@ -96,8 +150,15 @@
             playPauseBtn.innerText = '▶';
         }
     });
+
+    // Function to switch between sections
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(sectionId).classList.add('active');
+    }
 </script>
 
 </body>
 </html>
-w
