@@ -1,26 +1,17 @@
-const express = require("express");
-const axios = require("axios");
-const cors = require("cors");
-const app = express();
+async function downloadTrack() {
+    let url = document.getElementById("soundcloudUrl").value;
+    document.getElementById("status").innerText = "Processing...";
 
-app.use(express.json());
-app.use(cors());
+    let response = await fetch("/download", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+    });
 
-app.post("/download", async (req, res) => {
-    const { url } = req.body;
-    if (!url.includes("soundcloud.com")) return res.json({ success: false });
-
-    try {
-        const apiUrl = `https://api.example.com/convert?url=${encodeURIComponent(url)}`;  // Use a third-party API
-        const response = await axios.get(apiUrl);
-        if (response.data && response.data.downloadUrl) {
-            res.json({ success: true, downloadUrl: response.data.downloadUrl });
-        } else {
-            res.json({ success: false });
-        }
-    } catch (err) {
-        res.json({ success: false, error: err.message });
+    let data = await response.json();
+    if (data.success) {
+        window.location.href = data.downloadUrl;  // Redirect to file download
+    } else {
+        document.getElementById("status").innerText = "Failed to fetch track!";
     }
-});
-
-app.listen(3000, () => console.log("Server running on port 3000"));
+}
